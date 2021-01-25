@@ -3,10 +3,12 @@ package com.project.dvdrental.entity;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +16,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
+import com.project.dvdrental.converter.RatingConvert;
+import com.project.dvdrental.converter.YearConvert;
+
+
 @Entity
 @Table(name = "film")
 public class FilmEntity implements Serializable{
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "film_id")
@@ -29,7 +37,8 @@ public class FilmEntity implements Serializable{
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "release_year")
+	@Column(name = "release_year", columnDefinition = "smallint")
+	@Convert(converter = YearConvert.class)
 	private Year releaseYear;
 	
 	@ManyToOne
@@ -40,35 +49,37 @@ public class FilmEntity implements Serializable{
 	private Integer rentalDuration;
 	
 	@Column(name = "rental_rate")
-	private Float rentalRate;
+	private Double rentalRate;
 	
 	@Column(name = "length")
 	private Integer length;
 	
 	@Column(name = "replacement_cost")
-	private Float replacementCost;
+	private Double replacementCost;
 	
+	@Convert(converter = RatingConvert.class)
 	@Column(name = "rating")
-	private String rating;
+	private Rating rating;
 	
 	@Column(name = "last_update")
 	private Date lastUpdate;
 	
-	@Column(name = "special_features")
-	private Feature<String> specialFeature;
+	@Column(name = "special_features", columnDefinition = "text[]")
+    @Type(type = "com.project.dvdrental.entity.PostgreSqlStringArrayType")
+	private String[] specialFeature;
 	
-	@Column(name = "fulltext")
-	private String fullText;
-	
+//	@Column(name = "fulltext")
+//	private String fullText;
 	
 	public FilmEntity() {
 		super();
 	}
-
+	
+	
 
 	public FilmEntity(Integer filmId, String title, String description, Year releaseYear, LanguageEntity languageId,
-			Integer rentalDuration, Float rentalRate, Integer length, Float replacementCost, String rating,
-			Date lastUpdate, Feature specialFeature, String fullText) {
+			Integer rentalDuration, Double rentalRate, Integer length, Double replacementCost, Rating rating,
+			Date lastUpdate, String[] specialFeature) {
 		super();
 		this.filmId = filmId;
 		this.title = title;
@@ -82,100 +93,130 @@ public class FilmEntity implements Serializable{
 		this.rating = rating;
 		this.lastUpdate = lastUpdate;
 		this.specialFeature = specialFeature;
-		this.fullText = fullText;
+//		this.fullText = fullText;
 	}
+
 
 
 	public Integer getFilmId() {
 		return filmId;
 	}
+
 	public void setFilmId(Integer filmId) {
 		this.filmId = filmId;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Year getReleaseYear() {
 		return releaseYear;
 	}
+
 	public void setReleaseYear(Year releaseYear) {
 		this.releaseYear = releaseYear;
 	}
-	
+
 	public LanguageEntity getLanguageId() {
 		return languageId;
 	}
-
 
 	public void setLanguageId(LanguageEntity languageId) {
 		this.languageId = languageId;
 	}
 
-
 	public Integer getRentalDuration() {
 		return rentalDuration;
 	}
+
 	public void setRentalDuration(Integer rentalDuration) {
 		this.rentalDuration = rentalDuration;
 	}
-	public Float getRentalRate() {
+
+	public Double getRentalRate() {
 		return rentalRate;
 	}
-	public void setRentalRate(Float rentalRate) {
+
+	public void setRentalRate(Double rentalRate) {
 		this.rentalRate = rentalRate;
 	}
+
 	public Integer getLength() {
 		return length;
 	}
+
 	public void setLength(Integer length) {
 		this.length = length;
 	}
-	public Float getReplacementCost() {
+
+	public Double getReplacementCost() {
 		return replacementCost;
 	}
-	public void setReplacementCost(Float replacementCost) {
+
+	public void setReplacementCost(Double replacementCost) {
 		this.replacementCost = replacementCost;
 	}
-	public String getRating() {
+
+	
+
+	public Rating getRating() {
 		return rating;
 	}
-	public void setRating(String rating) {
+
+
+
+	public void setRating(Rating rating) {
 		this.rating = rating;
 	}
+
+
+
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
+
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
 
-	public Feature getSpecialFeature() {
+
+	public String[] getSpecialFeature() {
 		return specialFeature;
 	}
 
 
-	public void setSpecialFeature(Feature specialFeature) {
+
+	public void setSpecialFeature(String[] specialFeature) {
 		this.specialFeature = specialFeature;
 	}
 
 
-	public String getFullText() {
-		return fullText;
-	}
 
-
-	public void setFullText(String fullText) {
-		this.fullText = fullText;
-	}
+//	public String getFullText() {
+//		return fullText;
+//	}
+//
+//
+//
+//	public void setFullText(String fullText) {
+//		this.fullText = fullText;
+//	}
+	
+	
+	
 	
 }

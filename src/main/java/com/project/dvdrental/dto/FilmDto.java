@@ -2,22 +2,30 @@ package com.project.dvdrental.dto;
 
 import java.time.Year;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Convert;
+
+import org.hibernate.annotations.Type;
+
+import com.project.dvdrental.entity.LanguageEntity;
+import com.project.dvdrental.entity.Rating;
+import com.project.dvdrental.entity.RatingConvert;
 
 public class FilmDto {
+	
 	private Integer filmId;
 	private String title;
 	private String description;
-	private Year releaseYear;
+	private Integer releaseYear;
 	private Integer languageId;
 	private Integer rentalDuration;
-	private Float rentalRate;
+	private Double rentalRate;
 	private Integer length;
-	private Float replacementCost;
+	private Double replacementCost;
 	private String rating;
 	private Date lastUpdate;
-	private List<String> specialFeatures;
-	private String fullText;
+	private String[] specialFeature;
+//	private String fullText;
 	public Integer getFilmId() {
 		return filmId;
 	}
@@ -36,10 +44,10 @@ public class FilmDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Year getReleaseYear() {
+	public Integer getReleaseYear() {
 		return releaseYear;
 	}
-	public void setReleaseYear(Year releaseYear) {
+	public void setReleaseYear(Integer releaseYear) {
 		this.releaseYear = releaseYear;
 	}
 	public Integer getLanguageId() {
@@ -54,10 +62,10 @@ public class FilmDto {
 	public void setRentalDuration(Integer rentalDuration) {
 		this.rentalDuration = rentalDuration;
 	}
-	public Float getRentalRate() {
+	public Double getRentalRate() {
 		return rentalRate;
 	}
-	public void setRentalRate(Float rentalRate) {
+	public void setRentalRate(Double rentalRate) {
 		this.rentalRate = rentalRate;
 	}
 	public Integer getLength() {
@@ -66,10 +74,10 @@ public class FilmDto {
 	public void setLength(Integer length) {
 		this.length = length;
 	}
-	public Float getReplacementCost() {
+	public Double getReplacementCost() {
 		return replacementCost;
 	}
-	public void setReplacementCost(Float replacementCost) {
+	public void setReplacementCost(Double replacementCost) {
 		this.replacementCost = replacementCost;
 	}
 	public String getRating() {
@@ -84,19 +92,18 @@ public class FilmDto {
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	public List<String> getSpecialFeatures() {
-		return specialFeatures;
+	public String[] getSpecialFeature() {
+		return specialFeature;
 	}
-	public void setSpecialFeatures(List<String> specialFeatures) {
-		this.specialFeatures = specialFeatures;
+	public void setSpecialFeature(String[] specialFeature) {
+		this.specialFeature = specialFeature;
 	}
-	public String getFullText() {
-		return fullText;
-	}
-	public void setFullText(String fullText) {
-		this.fullText = fullText;
-	}
-	
+//	public String getFullText() {
+//		return fullText;
+//	}
+//	public void setFullText(String fullText) {
+//		this.fullText = fullText;
+//	}
 	
 	
 }
