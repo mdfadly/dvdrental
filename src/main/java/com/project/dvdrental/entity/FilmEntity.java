@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.project.dvdrental.converter.EnumTypePostgreSql;
 import com.project.dvdrental.converter.RatingConvert;
 import com.project.dvdrental.converter.YearConvert;
 
@@ -37,7 +38,7 @@ public class FilmEntity implements Serializable{
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "release_year", columnDefinition = "smallint")
+	@Column(name = "release_year", columnDefinition = "Year")
 	@Convert(converter = YearConvert.class)
 	private Year releaseYear;
 	
@@ -57,15 +58,17 @@ public class FilmEntity implements Serializable{
 	@Column(name = "replacement_cost")
 	private Double replacementCost;
 	
-	@Convert(converter = RatingConvert.class)
-	@Column(name = "rating")
+//	@Enumerated(EnumType.STRING)
+//	@Type(type = "com.project.dvdrental.converter.EnumTypePostgreSql")
+	@Column(name = "rating", columnDefinition = "mpaa_rating")
+	@Convert(converter = EnumTypePostgreSql.class)
 	private Rating rating;
 	
 	@Column(name = "last_update")
 	private Date lastUpdate;
 	
 	@Column(name = "special_features", columnDefinition = "text[]")
-    @Type(type = "com.project.dvdrental.entity.PostgreSqlStringArrayType")
+    @Type(type = "com.project.dvdrental.converter.PostgreSqlStringArrayType")
 	private String[] specialFeature;
 	
 //	@Column(name = "fulltext")

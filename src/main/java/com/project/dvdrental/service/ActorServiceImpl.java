@@ -1,12 +1,7 @@
 package com.project.dvdrental.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.dvdrental.dto.ActorDto;
 import com.project.dvdrental.entity.ActorEntity;
+import com.project.dvdrental.exception.ResourceNotFoundException;
 import com.project.dvdrental.repository.ActorRepository;
 
 @Service
@@ -31,10 +27,15 @@ public class ActorServiceImpl implements ActorService {
 	}
 	
 	@Override
-	public ActorEntity getByActorId(Integer actor_id) {
+	public ActorEntity getByActorId(Integer actor_id) throws ResourceNotFoundException {
 		// TODO Auto-generated method stub
-		ActorEntity actorEntity = repo.findByActorId(actor_id);
-		return actorEntity;
+		try {
+			ActorEntity actorEntity = repo.findByActorId(actor_id);
+			return actorEntity;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new ResourceNotFoundException("Resource With Actor Id : " + actor_id + " Not Found!");
+		}
 	}
 
 	@Override

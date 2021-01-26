@@ -15,13 +15,13 @@ import javax.persistence.Table;
 public class ActorEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "actor_id")
+	@Column(name = "actor_id")
 	private Integer actorId;
-//	@Column(name = "first_name")
+	@Column(name = "first_name")
 	private String firstName;
-//	@Column(name = "last_name")
+	@Column(name = "last_name")
 	private String lastName;
-//	@Column(name = "last_update")
+	@Column(name = "last_update")
 	private Date lastUpdate;
 	public ActorEntity() {
 		super();

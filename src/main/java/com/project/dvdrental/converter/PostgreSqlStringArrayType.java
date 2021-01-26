@@ -1,4 +1,4 @@
-package com.project.dvdrental.entity;
+package com.project.dvdrental.converter;
 
 import java.io.Serializable;
 import java.sql.Array;
